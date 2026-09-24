@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HOKBEN | Survey & Feedback Customer</title>
+
+    <!-- Favicon -->
+    <link href="https://update.hokben.co.id/img/hokben.png" rel="icon">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://update.hokben.co.id/design/style/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://update.hokben.co.id/design/style/css/owl.carousel.css">
+    <link rel="stylesheet" href="https://update.hokben.co.id/design/style/css/style.css">
+    <link rel="stylesheet" href="https://update.hokben.co.id/design/style/css/quiz.css">
+    <link rel="stylesheet" href="https://update.hokben.co.id/design/style/css/responsive.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+      /* Latar Belakang Utama Berwarna Merah HokBen dengan Motif Pola Jepang */
+      body {
+        background-color: #A61C1D;
+        background-image: 
+          radial-gradient(rgba(255, 204, 0, 0.15) 1px, transparent 0),
+          radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+        background-size: 30px 30px;
+        background-position: 0 0, 15px 15px;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      .disable {
+        pointer-events: none;
+        cursor: default;
+      }
+
+      /* Container Pembungkus Konten Utama */
+      .main-wrapper {
+        background: rgba(139, 21, 22, 0.65);
+        border-radius: 20px;
+        padding: 30px 15px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Kartu Visi, Misi & Sejarah HokBen */
+      .vm-card {
+        background: #FFF9E6;
+        border-radius: 14px;
+        padding: 25px;
+        border: 1px solid #FFE699;
+        border-top: 4px solid #E6B800;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        height: 100%;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+      }
+
+      .vm-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .vm-title {
+        color: #e1251b;
+        font-weight: 700;
+        font-size: 24px;
+        margin-bottom: 12px;
+        font-family: Arial, sans-serif;
+      }
+
+      .vm-text {
+        color: #2b2b2b;
+        font-size: 14px;
+        line-height: 1.6;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Judul Section Bertema Jepang + Animasi Denyut Halus */
+      .japanese-header {
+        color: #FFCC00;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        font-weight: bold;
+        animation: pulseHeader 2.5s infinite ease-in-out;
+      }
+
+      @keyframes pulseHeader {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.03); }
+      }
+
+      /* Tampilan Kartu Lokasi Store Modern */
+      .modern-location-card {
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .modern-location-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      }
+
+      .store-hero-img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+      }
+
+      .store-badge {
+        display: inline-block;
+        background: #e6f4ea;
+        color: #137333;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        margin-bottom: 8px;
+      }
+
+      .store-rating {
+        color: #f2994a;
+        font-weight: bold;
+        font-size: 13px;
+        margin-left: 6px;
+      }
+
+      .btn-maps {
+        background-color: #e1251b;
+        color: #ffffff !important;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 10px 20px;
+        display: inline-block;
+        text-decoration: none !important;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+      }
+
+      .btn-maps:hover {
+        background-color: #b81c13;
+        transform: scale(1.02);
+      }
+
+      .map-container {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+
+      /* Custom Styling Gambar Galeri Makanan */
+      .food-gallery-card {
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        border: 2px solid #FFCC00;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .food-gallery-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 204, 0, 0.4);
+      }
+
+      .food-gallery-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .food-caption {
+        background: #FFF9E6;
+        color: #A61C1D;
+        font-weight: bold;
+        font-size: 14px;
+        padding: 8px 5px;
+        text-align: center;
+      }
+
+      /* Style Khusus Kartu Pilihan Layanan */
+      .service-card {
+        background: rgba(255, 255, 255, 0.12);
+        border: 2px solid rgba(255, 204, 0, 0.4);
+        border-radius: 20px;
+        padding: 25px 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        text-decoration: none !important;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .service-card:hover {
+        transform: translateY(-8px) scale(1.04);
+        background: rgba(255, 255, 255, 0.25);
+        border-color: #FFCC00;
+        box-shadow: 0 15px 30px rgba(255, 204, 0, 0.3);
+      }
+
+      .service-card:active {
+        transform: scale(0.95);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .crop-container {
+        width: 100%;
+        height: 95px;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .service-img {
+        max-height: 120px;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s ease;
+      }
+
+      .service-card:hover .service-img {
+        transform: scale(1.1) rotate(2deg);
+      }
+
+      .service-label {
+        margin-top: 15px;
+        font-size: 22px;
+        font-weight: 800;
+        color: #FFCC00;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        text-align: center;
+        width: 100%;
+      }
+
+      /* Floating Music Control Button */
+      .music-control-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        background-color: #FFCC00;
+        color: #A61C1D;
+        border: 2px solid #ffffff;
+        border-radius: 50px;
+        padding: 10px 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .music-control-btn:hover {
+        background-color: #ffffff;
+        color: #e1251b;
+        transform: scale(1.05);
+      }
+
+      /* Dropdown Autocomplete Styling */
+      .typeahead.dropdown-menu {
+        max-height: 200px;
+        overflow-y: auto;
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 1050 !important;
+      }
+
+      /* ===================================================
+         ELEMEN ANIMASI KHAS JEPANG & HOKBEN
+      ====================================================== */
+
+      .jp-cloud {
+        position: absolute;
+        opacity: 0.18;
+        pointer-events: none;
+        z-index: 1;
+        filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.2));
+      }
+
+      .jp-cloud-1 {
+        top: 50px;
+        left: -150px;
+        width: 180px;
+        animation: floatCloud1 28s infinite linear;
+      }
+
+      .jp-cloud-2 {
+        top: 400px;
+        right: -150px;
+        width: 220px;
+        animation: floatCloud2 35s infinite linear;
+      }
+
+      .jp-cloud-3 {
+        top: 850px;
+        left: -150px;
+        width: 160px;
+        animation: floatCloud1 32s infinite linear 5s;
+      }
+
+      @keyframes floatCloud1 {
+        0% { left: -200px; }
+        100% { left: 105vw; }
+      }
+
+      @keyframes floatCloud2 {
+        0% { right: -200px; }
+        100% { right: 105vw; }
+      }
+
+      #sakura-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 99;
+        overflow: hidden;
+      }
+
+      .sakura {
+        position: absolute;
+        background: linear-gradient(135deg, #ffb7c5, #ff69b4);
+        border-radius: 12px 1px 12px 1px;
+        opacity: 0.8;
+        pointer-events: none;
+        animation: fall linear infinite;
+      }
+
+      @keyframes fall {
+        0% {
+          opacity: 0.9;
+          transform: translateY(-10vh) rotate(0deg) scale(0.8);
+        }
+        100% {
+          opacity: 0.2;
+          transform: translateY(105vh) rotate(360deg) scale(1.2);
+        }
+      }
+
+      .mascot-container {
+        position: fixed;
+        bottom: 15px;
+        left: 20px;
+        z-index: 999;
+        display: flex;
+        align-items: flex-end;
+        pointer-events: none;
+      }
+
+      .mascot-img {
+        width: 75px;
+        height: auto;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        animation: mascotBounce 3s ease-in-out infinite;
+      }
+
+      @keyframes mascotBounce {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        30% { transform: translateY(-12px) rotate(-4deg); }
+        50% { transform: translateY(0) rotate(0deg); }
+        70% { transform: translateY(-6px) rotate(4deg); }
+      }
+
+      .mascot-bubble {
+        background: #FFCC00;
+        color: #A61C1D;
+        font-weight: bold;
+        font-size: 11px;
+        padding: 5px 10px;
+        border-radius: 12px 12px 12px 0;
+        margin-left: 5px;
+        margin-bottom: 45px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        animation: bubblePop 3s infinite ease-in-out;
+      }
+
+      @keyframes bubblePop {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+      }
+
+      @media (max-width: 576px) {
+        .mascot-container { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Container Sakura Gugur -->
+    <div id="sakura-container"></div>
+
+    <!-- SVG Elemen Awan Jepang (Kumo) -->
+    <svg class="jp-cloud jp-cloud-1" viewBox="0 0 100 50" fill="#FFCC00">
+      <path d="M20,40 Q10,40 10,30 Q10,20 25,20 Q30,10 45,12 Q60,5 75,18 Q88,15 90,28 Q98,30 95,40 Z"/>
+    </svg>
+    <svg class="jp-cloud jp-cloud-2" viewBox="0 0 100 50" fill="#FFFFFF">
+      <path d="M20,40 Q10,40 10,30 Q10,20 25,20 Q30,10 45,12 Q60,5 75,18 Q88,15 90,28 Q98,30 95,40 Z"/>
+    </svg>
+    <svg class="jp-cloud jp-cloud-3" viewBox="0 0 100 50" fill="#FFCC00">
+      <path d="M20,40 Q10,40 10,30 Q10,20 25,20 Q30,10 45,12 Q60,5 75,18 Q88,15 90,28 Q98,30 95,40 Z"/>
+    </svg>
+
+    <!-- Maskot HokBen Lucu Melompat di Kiri Bawah -->
+    <div class="mascot-container">
+      <img src="https://update.hokben.co.id/img/hokben.png" alt="HokBen Mascot" class="mascot-img">
+      <div class="mascot-bubble">Oishii 🍱</div>
+    </div>
+
+    <!-- Audio Musik Utama -->
+    <audio id="bg-music" loop autoplay preload="auto">
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Audio Cadangan Efek Star/Rating Pop -->
+    <audio id="click-sound" preload="auto">
+      <source src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Tombol Floating Musik -->
+    <button id="music-toggle" class="music-control-btn" onclick="toggleMusic()">
+      <i id="music-icon" class="fa fa-pause"></i> <span id="music-text">Matikan Musik</span>
+    </button>
+
+    <div class="header-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="login-box">
+              <div class="login-logo">
+                <a href="https://update.hokben.co.id" class="navbar-brand align-items-center justify-content-center" style="width:50px">
+                  <img src="https://update.hokben.co.id/img/hokben.png" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 mt-2">
+            <h3 style="color: white; text-shadow: 2px 2px 4px #000000;">Survey & Feedback Customer</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="margin-top: 40px; margin-bottom: 50px; width:85%;">
+      <div class="main-wrapper">
+        <div class="row justify-content-md-center">
+          <input type="hidden" name="_token" value="1WGA77EJxNp4v70IROFP8YRvBvaofkZyc20Ki5FT">
+          <div class="col-sm-12" align="center">
+            <div class="row">
+              <div class="col-sm-12"><strong><h3 class="japanese-header">いらっしゃいませ</h3></strong></div>
+              <div class="col-md-12 mb-4"><h3 style="color: #ffffff; text-shadow: 1px 1px 3px #000;">(IRRASHAIMASE)</h3></div>
+
+              <!-- Teks Sejarah Singkat HokBen -->
+              <div class="col-md-10 offset-md-1 mb-4">
+                <div class="vm-card text-center">
+                  <h2 class="vm-title">Sejarah HokBen</h2>
+                  <p class="vm-text mb-0">
+                    HokBen (dahulu Hoka Hoka Bento) pertama kali didirikan pada tanggal 18 April 1985 di Kebon Sirih, Jakarta Pusat, di bawah naungan PT Eka Bogainti. Mengusung konsep restoran makanan cepat saji bergaya Jepang, HokBen berkomitmen untuk menyajikan hidangan yang lezat, berkualitas tinggi, serta bersertifikasi Halal bagi seluruh konsumen di Indonesia.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Tampilan Visi & Misi -->
+              <div class="col-md-10 offset-md-1 mb-5">
+                <div class="row">
+                  <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="vm-card text-center">
+                      <h2 class="vm-title">Visi</h2>
+                      <p class="vm-text mb-0">
+                        Menjadi penyedia makanan kasual ala Jepang utama dan terdepan dengan organisasi yang menginspirasi orang untuk melakukan yang terbaik.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="vm-card text-center">
+                      <h2 class="vm-title">Misi</h2>
+                      <p class="vm-text mb-0">
+                        Kami menjadikan kualitas tinggi dan pelayanan terbaik sebagai prioritas utama dalam menyediakan makanan berintegritas kepada pelanggan. Kami berusaha menciptakan nilai tambah bagi para pemangku kepentingan melalui inovasi dan teknologi, serta berkomitmen untuk memberikan kesempatan tumbuh dan berkembang bagi seluruh karyawan.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kartu Lokasi Modern & Maps HokBen Mall Taman Anggrek -->
+              <div class="col-md-10 offset-md-1 mb-5 text-left">
+                <h5 class="japanese-header text-center mb-4">LOKASI STORE HOKBEN MALL TAMAN ANGGREK</h5>
+                
+                <div class="modern-location-card">
+                  <div class="row no-gutters">
+                    <div class="col-lg-5">
+                      <img src="https://www.taman-anggrek-mall.com/storage/01JD4CTPXPJMZXTF7PMMKA1TE1.jpg" alt="HokBen Mall Taman Anggrek" class="store-hero-img">
+                    </div>
+                    <div class="col-lg-7 p-4 d-flex flex-column justify-content-between">
+                      <div>
+                        <span class="store-badge"><i class="fa fa-circle text-success" style="font-size: 8px;"></i> Buka • Lantai 4</span>
+                        <span class="store-rating"><i class="fa fa-star"></i> 4.8</span>
+                        <h4 style="font-weight: 700; color: #111;" class="mt-1 mb-2">HokBen Mall Taman Anggrek</h4>
+                        <p style="font-size: 13px; color: #555; line-height: 1.5;" class="mb-3">
+                          <i class="fa fa-map-marker text-danger mr-1"></i> Mall Taman Anggrek, Lt. 4 Food Court, Jl. Letjen S. Parman No.28, Tj. Duren Selatan, Grogol Petamburan, Jakarta Barat.
+                        </p>
+                      </div>
+
+                      <div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=HokBen+Mall+Taman+Anggrek+Jakarta" target="_blank" class="btn-maps btn-block text-center">
+                          <i class="fa fa-location-arrow mr-2"></i> Buka Petunjuk Arah di Google Maps
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-3 bg-light border-top">
+                    <div class="map-container">
+                      <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.575510667509!2d106.79011737583648!3d-6.180918793806627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f694e9f906f9%3A0x6333bf89781ed9db!2sHokBen%20Mall%20Taman%20Anggrek!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                        width="100%" 
+                        height="230" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                      </iframe>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Section Video Profile HokBen -->
+              <div class="col-md-10 offset-md-1 mb-5">
+                <div class="modern-location-card p-4 text-center">
+                  <h5 class="japanese-header text-center mb-4">~ PROFILE COMPANY HOKBEN ~</h5>
+                  
+                  <div class="map-container overflow-hidden">
+                    <div class="embed-responsive embed-responsive-16by9">
+                      <video class="embed-responsive-item" controls poster="https://update.hokben.co.id/img/hokben.png" style="object-fit: cover; width: 100%;">
+                        <source src="d:\Data Kuliah Afrilana\program web hokbeen\Video Hokben\Video 2026-09-16 at 16.13.23.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECTION GALERI GAMBAR MAKANAN HOKBEN  -->
+              <div class="col-md-10 offset-md-1 mt-4 mb-5">
+                <div class="modern-location-card p-4 text-center">
+                  <h5 class="japanese-header text-center mb-4">~ MENU FAVORIT HOKBEN ~</h5>
+                  
+                  <div class="row">
+                    <!-- Baris 1 - Gambar 1 -->
+                    <div class="col-6 mb-4">
+                      <div class="food-gallery-card">
+                        <img src="d:\Data Kuliah Afrilana\program web hokbeen\Menu makanan\Bento.jpeg" alt="Bento Special" class="food-gallery-img">
+                        <div class="food-caption">Bento Special</div>
+                      </div>
+                    </div>
+                    
+                    <!-- Baris 1 - Gambar 2 -->
+                    <div class="col-6 mb-4">
+                      <div class="food-gallery-card">
+                        <img src="d:\Data Kuliah Afrilana\program web hokbeen\Menu makanan\Hoka Hemat.jpeg" alt="Ebi Furai & Chicken Teriyaki" class="food-gallery-img">
+                        <div class="food-caption">Hoka Hemat</div>
+                      </div>
+                    </div>
+
+                    <!-- Baris 2 - Gambar 3 -->
+                    <div class="col-6 mt-2">
+                      <div class="food-gallery-card">
+                        <img src="d:\Data Kuliah Afrilana\program web hokbeen\Menu makanan\Premium set.jpeg" alt="Egg Chicken Roll" class="food-gallery-img">
+                        <div class="food-caption">Premium Set</div>
+                      </div>
+                    </div>
+
+                    <!-- Baris 2 - Gambar 4 -->
+                    <div class="col-6 mt-2">
+                      <div class="food-gallery-card">
+                        <img src="d:\Data Kuliah Afrilana\program web hokbeen\Menu makanan\Hokben Fried chicken.jpeg" alt="HokBen Set Menu" class="food-gallery-img">
+                        <div class="food-caption">Fried Chiken</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Input Cari Store HokBen Jakarta -->
+              <div class="col-md-12 text-center">
+                <div class="row justify-content-md-center"> 
+                  <div id="custom-search-input" class="col-sm-5">
+                    <div class="input-group">
+                      <input id="search" name="search" type="text" value="" class="form-control autocomplete" placeholder="Cari Store ..." autocomplete="off"/>
+                      <input type="hidden" id="store" name="store" value=""/>
+                    </div>
+                  </div>                
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Section Pilihan Layanan -->
+          <div class="col-md-12 mt-5 text-center mb-4">
+            <h3 class="japanese-header mb-4" style="font-size: 26px;">SILAKAN PILIH LAYANAN</h3>
+            
+            <div class="row justify-content-center align-items-stretch">
+              
+              <!-- Pilihan 1: TAKE AWAY -->
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <a href="#" onclick="return playSoundAndNavigate(3)" class="service-card">
+                  <div class="crop-container">
+                    <img src="d:\Data Kuliah Afrilana\program web hokbeen\img\takeaway.png" alt="Take Away" class="service-img"/>
+                  </div>
+                  <div class="service-label">TAKE AWAY</div>
+                </a>
+              </div>
+
+              <!-- Pilihan 2: DINE IN -->
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <a href="#" onclick="return playSoundAndNavigate(2)" class="service-card">
+                  <div class="crop-container">
+                    <img src="d:\Data Kuliah Afrilana\program web hokbeen\img\dinein.png" alt="Dine In" class="service-img"/>
+                  </div>
+                  <div class="service-label">DINE IN</div>
+                </a>
+              </div>
+
+              <!-- Pilihan 3: SURVEY -->
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <a href="#" onclick="return playSoundAndNavigate(4)" class="service-card">
+                  <div class="crop-container">
+                    <img src="d:\Data Kuliah Afrilana\program web hokbeen\img\survey.png" alt="Survey" class="service-img"/>
+                  </div>
+                  <div class="service-label">SURVEY</div>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Autocomplete, Suara, dan Generator Sakura -->
+    <script type="text/javascript">
+      // Script Generator Bunga Sakura Gugur
+      function createSakura() {
+        const container = document.getElementById('sakura-container');
+        const sakuraCount = 18;
+
+        for (let i = 0; i < sakuraCount; i++) {
+          const petal = document.createElement('div');
+          petal.className = 'sakura';
+          
+          const size = Math.random() * 8 + 8;
+          petal.style.width = size + 'px';
+          petal.style.height = size + 'px';
+          petal.style.left = Math.random() * 100 + 'vw';
+          petal.style.animationDuration = (Math.random() * 5 + 6) + 's';
+          petal.style.animationDelay = (Math.random() * 5) + 's';
+          
+          container.appendChild(petal);
+        }
+      }
+
+      var audio = document.getElementById("bg-music");
+
+      function playStarRatingSound() {
+        try {
+          var AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) {
+            playFallbackAudio();
+            return;
+          }
+          var ctx = new AudioContext();
+          var now = ctx.currentTime;
+
+          var osc1 = ctx.createOscillator();
+          var gain1 = ctx.createGain();
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(1046.50, now);
+          gain1.gain.setValueAtTime(0.3, now);
+          gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+          osc1.connect(gain1);
+          gain1.connect(ctx.destination);
+          osc1.start(now);
+          osc1.stop(now + 0.15);
+
+          var osc2 = ctx.createOscillator();
+          var gain2 = ctx.createGain();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(1318.51, now + 0.05);
+          gain2.gain.setValueAtTime(0.4, now + 0.05);
+          gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start(now + 0.05);
+          osc2.stop(now + 0.25);
+
+        } catch (e) {
+          playFallbackAudio();
+        }
+      }
+
+      function playFallbackAudio() {
+        var clickSound = document.getElementById("click-sound");
+        if(clickSound) {
+          clickSound.currentTime = 0;
+          clickSound.play().catch(function(){});
+        }
+      }
+
+      var jakartaStores = [
+        { name: "HokBen Kebon Sirih - Jakarta Pusat", kdstore: "JKT001" },
+        { name: "HokBen Plaza Indonesia - Jakarta Pusat", kdstore: "JKT002" },
+        { name: "HokBen Grand Indonesia - Jakarta Pusat", kdstore: "JKT003" },
+        { name: "HokBen Plaza Senayan - Jakarta Pusat", kdstore: "JKT004" },
+        { name: "HokBen Central Park - Jakarta Barat", kdstore: "JKT005" },
+        { name: "HokBen Mall Taman Anggrek - Jakarta Barat", kdstore: "JKT006" },
+        { name: "HokBen Puri Indah Mall - Jakarta Barat", kdstore: "JKT007" },
+        { name: "HokBen Pondok Indah Mall - Jakarta Selatan", kdstore: "JKT008" },
+        { name: "HokBen Kota Kasablanka - Jakarta Selatan", kdstore: "JKT009" },
+        { name: "HokBen Pacific Place - Jakarta Selatan", kdstore: "JKT010" },
+        { name: "HokBen Blok M Plaza - Jakarta Selatan", kdstore: "JKT011" },
+        { name: "HokBen Mall Kelapa Gading - Jakarta Utara", kdstore: "JKT012" },
+        { name: "HokBen Sunter Mall - Jakarta Utara", kdstore: "JKT013" },
+        { name: "HokBen Mall Artha Gading - Jakarta Utara", kdstore: "JKT014" },
+        { name: "HokBen Arion Mall Rawamangun - Jakarta Timur", kdstore: "JKT015" },
+        { name: "HokBen Tamini Square - Jakarta Timur", kdstore: "JKT016" },
+        { name: "HokBen Cibubur Junction - Jakarta Timur", kdstore: "JKT017" }
+      ];
+
+      $('#search').typeahead({
+        source: jakartaStores,
+        displayText: function(item) {
+          return item.name;
+        },
+        afterSelect: function (item) {
+          document.getElementById('store').value = item.kdstore;
+        }
+      });
+
+      function startAudio() {
+        audio.play().then(() => {
+          document.getElementById("music-text").innerHTML = "Matikan Musik";
+          document.getElementById("music-icon").className = "fa fa-pause";
+        }).catch(() => {
+          const enableAudio = () => {
+            audio.play();
+            document.getElementById("music-text").innerHTML = "Matikan Musik";
+            document.getElementById("music-icon").className = "fa fa-pause";
+            document.removeEventListener('click', enableAudio);
+            document.removeEventListener('keydown', enableAudio);
+            document.removeEventListener('touchstart', enableAudio);
+          };
+          document.addEventListener('click', enableAudio);
+          document.addEventListener('keydown', enableAudio);
+          document.addEventListener('touchstart', enableAudio);
+        });
+      }
+
+      window.addEventListener('DOMContentLoaded', function() {
+        createSakura();
+        var savedTime = localStorage.getItem('musicTime');
+        if (savedTime) {
+          audio.currentTime = parseFloat(savedTime);
+        }
+        startAudio();
+      });
+
+      function playSoundAndNavigate(id) {
+        var store = document.getElementById("store").value;
+        if (store === '') {
+          alert("Silahkan Pilih Store HokBen Jakarta Terlebih Dahulu");
+          return false;
+        }
+
+        playStarRatingSound();
+
+        localStorage.setItem('musicTime', audio.currentTime);
+
+        var urllink = "https://update.hokben.co.id/survey/" + id + "?&kdstore=" + store + "&valid=0";
+
+        setTimeout(function() {
+          location.href = urllink;
+        }, 280);
+
+        return false;
+      }
+
+      function toggleMusic() {
+        var text = document.getElementById("music-text");
+        var icon = document.getElementById("music-icon");
+
+        if (audio.paused) {
+          audio.play();
+          text.innerHTML = "Matikan Musik";
+          icon.className = "fa fa-pause";
+        } else {
+          audio.pause();
+          text.innerHTML = "Putar Musik";
+          icon.className = "fa fa-music";
+        }
+      }
+
+      audio.addEventListener('timeupdate', function() {
+        localStorage.setItem('musicTime', audio.currentTime);
+      });
+    </script>
+
+    <!-- Footer Bottom -->
+    <div style="display: block; right: 0; bottom: 0; left: 0; position: relative; z-index: 10;">
+      <div class="col">
+        <div class="row">
+          <img class="img-fluid" src="https://update.hokben.co.id/img/group_539.png" />
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://update.hokben.co.id/design/style/js/owl.carousel.min.js"></script>
+    <script src="https://update.hokben.co.id/design/style/js/jquery.sticky.js"></script>
+    <script src="https://update.hokben.co.id/design/style/js/jquery.easing.1.3.min.js"></script>
+    <script src="https://update.hokben.co.id/design/style/js/main.js"></script>
+    <script src="https://update.hokben.co.id/design/style/js/quiz.js"></script>
+    <script type="text/javascript" src="https://update.hokben.co.id/design/style/js/bxslider.min.js"></script>
+    <script type="text/javascript" src="https://update.hokben.co.id/design/style/js/script.slider.js"></script>
+  </body>
+</html>
